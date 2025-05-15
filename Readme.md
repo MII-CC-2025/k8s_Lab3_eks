@@ -49,9 +49,12 @@ Utiliza la consola Web de AWS para crear el cluster:
 
 La creación del cluster tardará un tiempo, una vez haya finalizado (aparecerá el estado del cluster como Activo).
 
-A continuación, vamos a establecer los nodos de computación del cluster. Para ello, accedemos al cluster y pulsamos sobre Informática (Computation). Podemos establecer un grupo de nodos (máquinas virtuales) o un perfil Fargate para trabajar con computación servlerless.
+A continuación, vamos a establecer los nodos de computación del cluster. Para ello, accedemos al cluster y pulsamos sobre Informática (Computation). Podemos establecer un grupo de nodos (máquinas virtuales) o un perfil
+Fargate para trabajar con computación servlerless.
 
-En este caso, crearemos un perfil de nodos. Pulsamos en Agregar grupo de nodos, establecemos un nombre para el grupo de nodos, seleccionamos un rol (LabRol) y pulsamos en siguiente. Establecemos el tipo de AMI (Amazon Linux x86_64), podemos cambiar el tipo de instancia (si queremos ahorar en costes), podemos establecer el número deseado, mínimo y máximo de instancias y pulsamos en siguiente. En las subredes pulsamos en siguiente y finalmante en siguiente y Crear.
+En este caso, crearemos un perfil de nodos. Pulsamos en Agregar grupo de nodos, establecemos un nombre para el grupo de nodos, seleccionamos un rol (LabRol) y pulsamos en siguiente. 
+Establecemos el tipo de AMI (Amazon Linux x86_64), podemos cambiar el tipo de instancia (si queremos ahorar en costes), podemos establecer el número deseado, mínimo y máximo de instancias y pulsamos en siguiente.
+En las subredes pulsamos en siguiente y finalmante en siguiente y Crear.
 
 Pasado un tiempo, veremos que aparecerán los nodos del clúster y su estado será "Preparado"
 
@@ -513,7 +516,7 @@ func handler(w http.ResponseWriter, r *http.Request) {
         if err != nil {
                 fmt.Fprintln(w, "Error:", err)
         } else {
-                fmt.Fprintln(w, "Hello from", hostname, "(version 2023)")
+                fmt.Fprintln(w, "Hello from", hostname, "(version 2024)")
         }
 }
 
@@ -554,20 +557,20 @@ ENTRYPOINT ["/bin/hello"]
 Construir la imagen:
 
 ```shell 
-docker build -t jluisalvarez/go_hello:2023 .
+docker build -t jluisalvarez/go_hello:2024 .
 ```
 
 Comprobar funcionamiento de la imagen:
 
 ```shell 
-docker run -d -p 8080:8080 --name hello_go jluisalvarez/go_hello:2023   
+docker run -d -p 8080:8080 --name hello_go jluisalvarez/go_hello:2024   
 ```
 
 Subir la imagen a Docker Hub:
 
 ```shell
 
-docker push jluisalvarez/go_hello:2023
+docker push jluisalvarez/go_hello:2024
 
 ```
 
@@ -592,7 +595,7 @@ spec:
     spec:
       containers:
       - name: go-hello
-        image: jluisalvarez/go_hello:2023
+        image: jluisalvarez/go_hello:2024
         ports:
         - containerPort: 8080
         resources:
@@ -697,13 +700,13 @@ spec:
 Etiqueta la versión actual
 
 ```
-kubectl annotate deployment/hello-deployment kubernetes.io/change-cause="version 2023"
+kubectl annotate deployment/hello-deployment kubernetes.io/change-cause="version 2024"
 ```
 
 Provoca un cambio de imagen, imperativo: 
 
 ```
-kubectl set image deployments/hello-deployment go-hello=jluisalvarez/go_hello:2024
+kubectl set image deployments/hello-deployment go-hello=jluisalvarez/go_hello:2025
 ```
 
 (Esto también, podría haberse realizado modificando el fichero yaml y aplicando o editando directamente el deployment)
@@ -715,7 +718,7 @@ kubectl rollout history deployment/hello-deployment
 
 Anotaciones del motivo del cambio
 ```
-kubectl annotate deployment/hello-deployment kubernetes.io/change-cause="New version 2024"
+kubectl annotate deployment/hello-deployment kubernetes.io/change-cause="New version 2025"
 ```
 
 Comprobar estado de la actualización:
