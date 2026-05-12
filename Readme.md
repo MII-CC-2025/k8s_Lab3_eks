@@ -43,14 +43,18 @@ https://kubernetes.io/docs/tasks/tools/
 Utiliza la consola Web de AWS para crear el cluster: 
 - Selecciona Elastic Kubernetes Service (EKS)
 - Pulsa en Agregar Cluster y Crear
-- Inserta el nombre, deja el resto de opciones por defecto y pulsa siguiente
-- Elimina la subred "us-east-1e". Elige el grupo de seguridad por defecto. Establezce el "Acceso al punto de enlace del clúster" como Público, deja el resto de opciones por defecto y pulsa siguiente
+- Elige la opción: Custom configuration 
+- Deshabilita la opción EKS Auto Mode (Nosotros crearemos los nodos)
+- Inserta el nombre
+- En Cluster IAM role elige el rol LabEKSClusterRole
+- Deja el resto de opciones por defecto y pulsa siguiente
+- Deja la VPC por defecto y elimina, si aparecen, las subredes dejando: "us-east-1a", "us-east-1b", "us-east-1c", "us-east-1d" y "us-east-1f".
+- Establezce el "Acceso al punto de enlace del clúster" (Cluster endpoint access) como Público, deja el resto de opciones por defecto y pulsa siguiente
 - Deja el resto de opciones por defecto, pulsando siguiente en las tres pantallas siguientes y pulsa en Crear.
 
 La creación del cluster tardará un tiempo, una vez haya finalizado (aparecerá el estado del cluster como Activo).
 
-A continuación, vamos a establecer los nodos de computación del cluster. Para ello, accedemos al cluster y pulsamos sobre Informática (Computation). Podemos establecer un grupo de nodos (máquinas virtuales) o un perfil
-Fargate para trabajar con computación servlerless.
+A continuación, vamos a establecer los nodos de computación del cluster. Para ello, accedemos al cluster y pulsamos sobre Informática (Computation). Podemos establecer un grupo de nodos (máquinas virtuales) o un perfil Fargate para trabajar con computación servlerless.
 
 En este caso, crearemos un perfil de nodos. Pulsamos en Agregar grupo de nodos, establecemos un nombre para el grupo de nodos, seleccionamos un rol (LabRol) y pulsamos en siguiente. 
 Establecemos el tipo de AMI (Amazon Linux x86_64), podemos cambiar el tipo de instancia (si queremos ahorar en costes), podemos establecer el número deseado, mínimo y máximo de instancias y pulsamos en siguiente.
